@@ -16,8 +16,8 @@ DisplaySurface = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pong")
 
 pygame.draw.rect(DisplaySurface, (255, 255, 255), (0, 240, 20, 80))
-pygame.draw.rect(DisplaySurface, (255, 255, 255), (180, HEIGHT - 20, 20, 80))
-pygame.draw.circle(DisplaySurface, (255, 255, 255), (int(WIDTH/2), int(HEIGHT/2)), 120)
+pygame.draw.rect(DisplaySurface, (255, 255, 255), (WIDTH - 20, 180, 20, 80))
+pygame.draw.circle(DisplaySurface, (255, 255, 255), (int(WIDTH/2), int(HEIGHT/2)), 15)
 
 #Game Loop
 while True:
