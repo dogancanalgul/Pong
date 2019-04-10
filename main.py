@@ -1,33 +1,32 @@
-import kivy
-from kivy.app import App
-from kivy.uix.widget import Widget
-from kivy.graphics import Line
-from kivy.graphics import Ellipse
-from kivy.graphics import Rectangle
+import pygame, sys
 
-kivy.require("1.0.8")
+from pygame.locals import *
 
-class Screen(Widget):
-    def __init__(self, **kwargs):
-        super(Screen, self).__init__(**kwargs)
-    def on_touch_down(self, touch):
-       with self.canvas:
-            touch.ud["line"] = Line(points=(touch.x, touch.y))
+#initializing pygame
 
-    def on_touch_move(self, touch):
-        touch.ud["line"].points += (touch.x, touch.y)
-        touch.ud["ellipse"] = Ellipse(Rectangle(pos=(10, 10), size=(500, 500)))
-        Ellipse(pos=(touch.x - 15, touch.y - 15), size = (30,30))
-        Rectangle(pos=(0, 70), size(50,200))
+pygame.init()
 
-class Pong(App):
 
-    def build(self):
-        return Screen()
-    def run(self):
-        super(Pong, self).run()
-        #self.rect1 = Rectangle(pos=(0, 60), size=(50, 200))
-        #self.rect1 = Rectangle(pos=(, 60), size=(50, 200))
+#Game Surface 480x480
+HEIGHT = 480
+WIDTH = 480
+DisplaySurface = pygame.display.set_mode((WIDTH, HEIGHT))
 
-if __name__ == '__main__':
-    Pong().run()
+#Game Name Pong
+pygame.display.set_caption("Pong")
+
+pygame.draw.rect(DisplaySurface, (255, 255, 255), (0, 240, 20, 80))
+pygame.draw.rect(DisplaySurface, (255, 255, 255), (180, HEIGHT - 20, 20, 80))
+pygame.draw.circle(DisplaySurface, (255, 255, 255), (int(WIDTH/2), int(HEIGHT/2)), 120)
+
+#Game Loop
+while True:
+
+    #User Events;
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            #End Game
+                pygame.quit()
+                sys.exit()
+    #Update Display
+    pygame.display.update()
