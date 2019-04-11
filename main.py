@@ -21,6 +21,7 @@ pygame.display.set_caption("Pong")
 rectangle = PlayerRacket((255, 255, 255), (0, 200, 50, 200), HEIGHT)
 rect2 = PlayerRacket((255, 0, 255), (WIDTH - 50, 200, 50, 200), HEIGHT)
 ball = Ball((0,0),100,(255,255,255),(rectangle,rect2))
+ball.collision_point(DisplaySurface)
 #Game Loop
 while True:
 
