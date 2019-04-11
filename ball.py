@@ -27,15 +27,15 @@ class Ball:
     def collision_update(self):
         col_pos = (0,0)
         col_body = None
-        collisioned = False
+        collision = False
         for r in self.rigid:
             for point in ((self.pos[0] + self.rad*cos(theta*0.01),self.pos[1] + self.rad*sin(theta*0.01))   for theta in  range(0,int(pi*2*100))):
                 if  r.posize[0] < point[0] < r.posize[0] + r.posize[2]  and r.posize[1] < point[1] < r.posize[1] + r.posize[3]:
                     col_pos = point
                     col_body = r
-                    collisioned = True
+                    collision = True
                     break
-        if collisioned and isinstance(r,PlayerRacket) :
+        if collision and isinstance(r,PlayerRacket) :
             self.velocity = (int(-self.velocity[0] ),int((col_pos[1] - col_body.posize[1] +
                                                           col_body.posize[3]/2)/col_body[3]*self.velocity[1]))
 
