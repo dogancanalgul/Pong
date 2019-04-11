@@ -35,7 +35,7 @@ class Ball:
                     col_body = r
                     collision = True
                     break
-        if collision and isinstance(r,PlayerRacket) :
+        if collision and type(r) is PlayerRacket:
             self.velocity = (int(-self.velocity[0] ),int((col_pos[1] - col_body.posize[1] +
                                                           col_body.posize[3]/2)/col_body[3]*self.velocity[1]))
 
