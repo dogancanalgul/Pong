@@ -14,8 +14,8 @@ class PlayerRacket:
 
     def moveDown(self):
         if self.posize[1] + self.posize[3] < self.POSLIMIT:
-            self.posize[1] += 2
+            self.posize[1] += 4
 
     def moveUp(self):
         if self.posize[1] > 0:
-            self.posize[1] -= 2
+            self.posize[1] -= 4
