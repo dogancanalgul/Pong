@@ -37,7 +37,8 @@ class Ball:
                     collisioned = True
                     break
         if collisioned and isinstance(r,PlayerRacket) :
-            self.velocity = (int(-self.velocity[0] ),int((col_pos[1] - col_body.posize[1] + col_body.posize[3]/2)/col_body[3]*self.velocity[0]))
+            self.velocity = (int(-self.velocity[0] ),int((col_pos[1] - col_body.posize[1] +
+                                                          col_body.posize[3]/2)/col_body[3]*self.velocity[1]))
             print("seeeeeeeeeelman")
 
 
