@@ -11,7 +11,7 @@ pygame.init()
 
 #Game Surface 480x480
 HEIGHT = 640
-WIDTH = 480
+WIDTH = 640
 DisplaySurface = pygame.display.set_mode((WIDTH, HEIGHT))
 
 #Game Name Pong
@@ -19,12 +19,14 @@ pygame.display.set_caption("Pong")
 
 # pygame.draw.circle(DisplaySurface, (255, 255, 255), (int(WIDTH/2), int(HEIGHT/2)), 15)
 
-rectangle = PlayerRacket((255, 255, 255), (0, 200, 50, 200), HEIGHT)
-rect2 = PlayerRacket((255, 0, 255), (WIDTH - 50, 200, 50, 200), HEIGHT)
+rectangle = PlayerRacket((255, 255, 255), (0, 200, 20, 100), HEIGHT)
+rect2 = PlayerRacket((255, 0, 255), (WIDTH - 20, 200, 20, 100), HEIGHT)
+
 
 ball = Ball((int(WIDTH/2),int(HEIGHT/2)),10,(255,255,255),(rectangle,rect2
             #Adding upper and lower bounds to ball
-           #,Wall((0, -10, WIDTH, 10)), Wall((0, HEIGHT, WIDTH, 10))
+           , Wall((0, -10, WIDTH, 10)) # TOP WALL
+            , Wall((0, HEIGHT, WIDTH, 10))#BOTTOM WALL
 ))
 
 #Game Loop
