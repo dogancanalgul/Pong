@@ -4,6 +4,7 @@ from pygame.locals import *
 
 #initializing pygame
 from Pong.PlayerRacket import PlayerRacket
+from Pong.Wall import Wall
 from Pong.ball import Ball
 
 pygame.init()
@@ -20,7 +21,11 @@ pygame.display.set_caption("Pong")
 
 rectangle = PlayerRacket((255, 255, 255), (0, 200, 50, 200), HEIGHT)
 rect2 = PlayerRacket((255, 0, 255), (WIDTH - 50, 200, 50, 200), HEIGHT)
-ball = Ball((int(WIDTH/2),int(HEIGHT/2)),10,(255,255,255),(rectangle,rect2))
+
+ball = Ball((int(WIDTH/2),int(HEIGHT/2)),10,(255,255,255),(rectangle,rect2
+            #Adding upper and lower bounds to ball
+           #,Wall((0, -10, WIDTH, 10)), Wall((0, HEIGHT, WIDTH, 10))
+))
 
 #Game Loop
 while True:
@@ -52,7 +57,7 @@ while True:
     ball.draw(DisplaySurface)
 
     pygame.display.update()
-    (pygame.time.Clock()).tick(20)
+    (pygame.time.Clock()).tick(60)
 
 
 
