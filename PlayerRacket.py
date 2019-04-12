@@ -1,9 +1,8 @@
 import pygame
-from pygame.locals import *
-
 
 class PlayerRacket:
-    SPEED = 4
+    SPEED = 10
+
     def __init__(self, color, posize, limit):
         self.color = color
         self.posize = list(posize)
