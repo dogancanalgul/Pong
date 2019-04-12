@@ -3,6 +3,7 @@ from pygame.locals import *
 
 
 class PlayerRacket:
+    SPEED = 4
     def __init__(self, color, posize, limit):
         self.color = color
         self.posize = list(posize)
@@ -14,8 +15,8 @@ class PlayerRacket:
 
     def moveDown(self):
         if self.posize[1] + self.posize[3] < self.POSLIMIT:
-            self.posize[1] += 4
+            self.posize[1] += PlayerRacket.SPEED
 
     def moveUp(self):
         if self.posize[1] > 0:
-            self.posize[1] -= 4
+            self.posize[1] -= PlayerRacket.SPEED
