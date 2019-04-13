@@ -37,10 +37,8 @@ while True:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_UP]:
-        # player1.up()
         player2.up()
     elif keys[pygame.K_DOWN]:
-        # player1.down()
         player2.down()
 
     if keys[pygame.K_w]:
