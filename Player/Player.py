@@ -4,7 +4,6 @@ from Pong.Player.PlayerRacket import PlayerRacket
 class Player:
     def __init__(self, color, posize, limit):
         self.racket = PlayerRacket(color, posize, limit)
-
     def update(self, surface):
         self.racket.draw(surface)
 
