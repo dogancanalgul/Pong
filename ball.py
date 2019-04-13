@@ -5,7 +5,6 @@ from math import *
 from Pong.GameStats import GameStats
 from Pong.Player.Goal import Goal
 from Pong.Player.PlayerRacket import PlayerRacket
-import Pong.Player.Goal
 
 
 class Ball:
@@ -16,7 +15,7 @@ class Ball:
     RADIUS: int = 10
 
     def __init__(self, players):
-        self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y,Ball.MAX_SPEED_Y))
+        self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
         self.pos = (int(GameStats.width/2), int(GameStats.height/2))
         self.players = players
 
@@ -30,7 +29,6 @@ class Ball:
         elif self.pos[1] < 0 or self.pos[1] > GameStats.height:
             self.velocity = (self.velocity[0], -self.velocity[1])
 
-
     def draw(self, surface):
         self.update_move()
         draw.circle(surface, Ball.COLOR, self.pos, Ball.RADIUS)
@@ -40,7 +38,7 @@ class Ball:
         col_body = None
         collision = False
 
-        for p in [self.players[0].racket,self.players[1].racket,self.players[0].goal,self.players[1].goal]:
+        for p in [self.players[0].racket, self.players[1].racket, self.players[0].goal, self.players[1].goal]:
             for point in ((self.pos[0] + Ball.RADIUS*cos(theta*0.01), self.pos[1] + Ball.RADIUS*sin(theta*0.01))
                           for theta in range(0, int(pi*2*100))):
                 if p.posize[0] < point[0] < p.posize[0] + p.posize[2] and \
@@ -55,7 +53,6 @@ class Ball:
             if type(col_body) is PlayerRacket:
                 self.velocity = (-self.velocity[0], int((col_pos[1] - col_body.posize[1] -
                                                         col_body.posize[3]/2)/col_body.posize[3]*Ball.MAX_SPEED_Y*2))
-                print("Racket hit")
             elif type(col_body) is Goal:
                 if self.players[0].goal == col_body:
                     self.players[0].score()
@@ -65,5 +62,3 @@ class Ball:
 
                 self.pos = (GameStats.width//2, GameStats.height//2)
                 self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
-                print("Goal!!")
-

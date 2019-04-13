@@ -14,12 +14,12 @@ DisplaySurface = pygame.display.set_mode((GameStats.width, GameStats.height))
 
 # Game Name Pong
 pygame.display.set_caption("Pong")
-goal_1 = Goal((-10,0,10,GameStats.height))
+goal_1 = Goal((-10, 0, 10, GameStats.height))
 
-goal_2 = Goal((GameStats.width,0,10,GameStats.height))
+goal_2 = Goal((GameStats.width, 0, 10, GameStats.height))
 
-player1 = Player((255, 255, 255), (0, 200, 20, 100), GameStats.height,goal_2,(GameStats.width/2-24,0))
-player2 = Player((255, 0, 255), (GameStats.width - 20, 200, 20, 100), GameStats.height,goal_1,(GameStats.width/2+24,0))
+player1 = Player((255, 255, 255), (0, 200, 20, 100), GameStats.height, goal_2, (GameStats.width/2-24, 0))
+player2 = Player((255, 0, 255), (GameStats.width - 20, 200, 20, 100), GameStats.height, goal_1, (GameStats.width/2+24, 0))
 
 ball = Ball((player1, player2))
 
@@ -46,7 +46,6 @@ while True:
     elif keys[pygame.K_s]:
         player1.down()
 
-
     # Update Display
     DisplaySurface.fill((0, 0, 0))
 
@@ -56,3 +55,10 @@ while True:
 
     pygame.display.update()
     (pygame.time.Clock()).tick(60)
+
+# TODO
+# Play Game Screen
+# Play 2 Local Player
+# Play 2 Online Player
+# Play versus Machine
+# Play versus Artificial Intelligence
