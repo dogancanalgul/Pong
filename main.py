@@ -1,65 +1,60 @@
 import pygame, sys
 
-from pygame.locals import *
-
-#initializing pygame
-from Pong.PlayerRacket import PlayerRacket
+from Pong.Player.GameStats import GameStats
+from Pong.Player.Player import Player
 from Pong.Wall import Wall
 from Pong.ball import Ball
 
+# initializing pygame
 pygame.init()
 
-#Game Surface 480x480
-HEIGHT = 640
-WIDTH = 640
-DisplaySurface = pygame.display.set_mode((WIDTH, HEIGHT))
+DisplaySurface = pygame.display.set_mode((GameStats.width, GameStats.height))
 
-#Game Name Pong
+# Game Name Pong
 pygame.display.set_caption("Pong")
 
-# pygame.draw.circle(DisplaySurface, (255, 255, 255), (int(WIDTH/2), int(HEIGHT/2)), 15)
 
-rectangle = PlayerRacket((255, 255, 255), (0, 200, 20, 100), HEIGHT)
-rect2 = PlayerRacket((255, 0, 255), (WIDTH - 20, 200, 20, 100), HEIGHT)
+player1 = Player((255, 255, 255), (0, 200, 20, 100), GameStats.height)
+player2 = Player((255, 0, 255), (GameStats.width - 20, 200, 20, 100), GameStats.height)
 
-
-ball = Ball((int(WIDTH/2),int(HEIGHT/2)),10,(255,255,255),(rectangle,rect2
-            #Adding upper and lower bounds to ball
-           , Wall((0, -10, WIDTH, 10)) # TOP WALL
-            , Wall((0, HEIGHT, WIDTH, 10))#BOTTOM WALL
+ball = Ball((player1.racket, player2.racket
+            # Adding upper and lower bounds to ball
+           , Wall((0, -10, GameStats.width, 10)) # TOP WALL
+            , Wall((0, GameStats.height, GameStats.width, 10))#BOTTOM WALL
 ))
 
-#Game Loop
+# Game Loop
 while True:
 
-    #User Events;
+    # User Events;
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            #End Game
+            # End Game
                 pygame.quit()
                 sys.exit()
 
-    #KEYBOARD CONTROL
+    # KEYBOARD CONTROL
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_UP]:
-        rectangle.moveUp()
-        rect2.moveUp()
-    elif keys[pygame.K_DOWN] :
-        rectangle.moveDown()
-        rect2.moveDown()
+        # player1.up()
+        player2.up()
+    elif keys[pygame.K_DOWN]:
+        # player1.down()
+        player2.down()
+
+    if keys[pygame.K_w]:
+        player1.up()
+    elif keys[pygame.K_s]:
+        player1.down()
 
 
-
-    #Update Display
+    # Update Display
     DisplaySurface.fill((0, 0, 0))
 
-    rectangle.draw(DisplaySurface)
-    rect2.draw(DisplaySurface)
+    player1.update(DisplaySurface)
+    player2.update(DisplaySurface)
     ball.draw(DisplaySurface)
 
     pygame.display.update()
     (pygame.time.Clock()).tick(60)
-
-
-

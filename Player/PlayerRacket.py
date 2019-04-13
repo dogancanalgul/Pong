@@ -1,5 +1,6 @@
 import pygame
 
+
 class PlayerRacket:
     SPEED = 10
 
