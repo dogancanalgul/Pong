@@ -3,8 +3,9 @@ from random import randrange
 from math import *
 
 from Pong.GameStats import GameStats
+from Pong.Player.Goal import Goal
 from Pong.Player.PlayerRacket import PlayerRacket
-from Pong.Wall import Wall
+import Pong.Player.Goal
 
 
 class Ball:
@@ -14,10 +15,10 @@ class Ball:
     COLOR = (int(255), int(255), int(255))
     RADIUS: int = 10
 
-    def __init__(self, rigid):
+    def __init__(self, players):
         self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y,Ball.MAX_SPEED_Y))
         self.pos = (int(GameStats.width/2), int(GameStats.height/2))
-        self.rigid = rigid
+        self.players = players
 
     def update_move(self):
         # if there is collision
@@ -26,6 +27,9 @@ class Ball:
         if self.pos[0] < -5 or self.pos[0] > 640:
             self.pos = (320, 320)
             self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
+        elif self.pos[1] < 0 or self.pos[1] > GameStats.height:
+            self.velocity = (self.velocity[0], -self.velocity[1])
+
 
     def draw(self, surface):
         self.update_move()
@@ -35,22 +39,31 @@ class Ball:
         col_pos = (0, 0)
         col_body = None
         collision = False
-        for r in self.rigid:
+
+        for p in [self.players[0].racket,self.players[1].racket,self.players[0].goal,self.players[1].goal]:
             for point in ((self.pos[0] + Ball.RADIUS*cos(theta*0.01), self.pos[1] + Ball.RADIUS*sin(theta*0.01))
                           for theta in range(0, int(pi*2*100))):
-                if r.posize[0] < point[0] < r.posize[0] + r.posize[2] and \
-                        r.posize[1] < point[1] < r.posize[1] + r.posize[3]:
+                if p.posize[0] < point[0] < p.posize[0] + p.posize[2] and \
+                        p.posize[1] < point[1] < p.posize[1] + p.posize[3]:
                     col_pos = point
-                    col_body = r
+                    col_body = p
                     collision = True
                     break
             if collision:
                 break
         if collision:
-            if type(r) is PlayerRacket:
+            if type(col_body) is PlayerRacket:
                 self.velocity = (-self.velocity[0], int((col_pos[1] - col_body.posize[1] -
                                                         col_body.posize[3]/2)/col_body.posize[3]*Ball.MAX_SPEED_Y*2))
                 print("Racket hit")
-            elif type(r) is Wall:
-                self.velocity = (self.velocity[0], -self.velocity[1])
-                print("Wall Hit")
+            elif type(col_body) is Goal:
+                if self.players[0].goal == col_body:
+                    self.players[0].score()
+
+                if self.players[1].goal == col_body:
+                    self.players[1].score()
+
+                self.pos = (GameStats.width//2, GameStats.height//2)
+                self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
+                print("Goal!!")
+
