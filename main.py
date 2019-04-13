@@ -1,6 +1,6 @@
 import pygame, sys
 
-from Pong.Player.GameStats import GameStats
+from Pong.GameStats import GameStats
 from Pong.Player.Player import Player
 from Pong.Wall import Wall
 from Pong.ball import Ball

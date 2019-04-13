@@ -2,7 +2,7 @@ from pygame import *
 from random import randrange
 from math import *
 
-from Pong.Player.GameStats import GameStats
+from Pong.GameStats import GameStats
 from Pong.Player.PlayerRacket import PlayerRacket
 from Pong.Wall import Wall
 

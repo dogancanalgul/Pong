@@ -4,7 +4,7 @@ import pygame
 class PlayerRacket:
     SPEED = 10
 
-    def __init__(self, color, posize, limit):
+    def __init__(self, color, posize, limit, ):
         self.color = color
         self.posize = list(posize)
         self.POSLIMIT = limit
