@@ -10,22 +10,32 @@ class Player:
 
 
     def __init__(self, color, posize, limit,goal,pos):
-        self.racket = PlayerRacket(color, posize, limit)
+        self._racket = PlayerRacket(color, posize, limit)
         self._score = 0
-        self.goal = goal
+        self._goal = goal
         Player.GAME_FONT = freetype.Font("wonder.ttf", 24)
         self.pos = pos
 
+    def __getitem__(self, key):
+        if key == 1:
+            return self._goal
+        if key == 0:
+            return self._racket
+        else:
+            raise ValueError
+
+
+
     def update(self, surface):
-        self.racket.draw(surface)
+        self._racket.draw(surface)
         text_surface,rect = Player.GAME_FONT.render(f"{self._score}", (255, 255, 255))
         surface.blit(text_surface,dest=self.pos)
 
     def up(self):
-        self.racket.moveUp()
+        self._racket.moveUp()
 
     def down(self):
-        self.racket.moveDown()
+        self._racket.moveDown()
 
     def score(self):
         self._score += 1

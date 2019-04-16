@@ -6,17 +6,23 @@ class PlayerRacket:
 
     def __init__(self, color, posize, limit, ):
         self.color = color
-        self.posize = list(posize)
+        self._posize = list(posize)
         self.POSLIMIT = limit
 
     def draw(self, surface):
-        pygame.draw.rect(surface, self.color, self.posize)
+        pygame.draw.rect(surface, self.color, self._posize)
         return True
 
     def moveDown(self):
-        if self.posize[1] + self.posize[3] < self.POSLIMIT:
-            self.posize[1] += PlayerRacket.SPEED
+        if self._posize[1] + self._posize[3] < self.POSLIMIT:
+            self._posize[1] += PlayerRacket.SPEED
 
     def moveUp(self):
-        if self.posize[1] > 0:
-            self.posize[1] -= PlayerRacket.SPEED
+        if self._posize[1] > 0:
+            self._posize[1] -= PlayerRacket.SPEED
+
+    def __getitem__(self, key):
+        return self._posize[key]
+
+    def __setitem__(self, key,key2):
+        self._posize[key] = self._posize[key2]

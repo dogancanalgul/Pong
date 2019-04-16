@@ -17,7 +17,7 @@ class Ball:
 
     def __init__(self, players):
         self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y,Ball.MAX_SPEED_Y))
-        self.pos = (int(GameStats.width/2), int(GameStats.height/2))
+        self.pos = (GameStats.width//2, GameStats.height//2)
         self.players = players
 
     def update_move(self):
@@ -40,11 +40,11 @@ class Ball:
         col_body = None
         collision = False
 
-        for p in [self.players[0].racket,self.players[1].racket,self.players[0].goal,self.players[1].goal]:
+        for p in [self.players[0][0],self.players[1][0],self.players[0][1],self.players[1][1]]:
             for point in ((self.pos[0] + Ball.RADIUS*cos(theta*0.01), self.pos[1] + Ball.RADIUS*sin(theta*0.01))
                           for theta in range(0, int(pi*2*100))):
-                if p.posize[0] < point[0] < p.posize[0] + p.posize[2] and \
-                        p.posize[1] < point[1] < p.posize[1] + p.posize[3]:
+                if p[0] < point[0] < p[0] + p[2] and \
+                        p[1] < point[1] < p[1] + p[3]:
                     col_pos = point
                     col_body = p
                     collision = True
@@ -53,17 +53,17 @@ class Ball:
                 break
         if collision:
             if type(col_body) is PlayerRacket:
-                self.velocity = (-self.velocity[0], int((col_pos[1] - col_body.posize[1] -
-                                                        col_body.posize[3]/2)/col_body.posize[3]*Ball.MAX_SPEED_Y*2))
-                print("Racket hit")
+                self.velocity = (-self.velocity[0], int((col_pos[1] - col_body[1] -
+                                                        col_body[3]/2)/col_body[3]*Ball.MAX_SPEED_Y*2))
+
             elif type(col_body) is Goal:
-                if self.players[0].goal == col_body:
+                if self.players[0][1] == col_body:
                     self.players[0].score()
 
-                if self.players[1].goal == col_body:
+                if self.players[1][1] == col_body:
                     self.players[1].score()
 
                 self.pos = (GameStats.width//2, GameStats.height//2)
                 self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
-                print("Goal!!")
+
 
