@@ -62,3 +62,5 @@ while True:
 # Play 2 Online Player
 # Play versus Machine
 # Play versus Artificial Intelligence
+# Sounds
+# Sound setting
