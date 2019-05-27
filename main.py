@@ -10,17 +10,39 @@ from Pong.ball import Ball
 
 def start_game():
 
+    p1 = None
+    p2 = None
+    ball = None
     if pygame.mouse.get_pressed()[0]:
         mousePos = pygame.mouse.get_pos()
         if GameStats.width // 2 + 125 > mousePos[0] > GameStats.width // 2 - 125 and \
-                GameStats.height // 2 - 50 < mousePos[1] < GameStats.height // 2 + 50:
+                GameStats.height // 2 - 100 < mousePos[1] < GameStats.height // 2:
             GameStats.mod = "on_game"
+            p1 = Player((255, 255, 255), (0, 200, 20, 100),
+                             Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width / 2 - 24, 0))
+            p2 = Player((255, 0, 255), (GameStats.width - 20, 200, 20, 100),
+                 Goal((-10, 0, 10, GameStats.height)), (GameStats.width/2+24, 0))
+
+        if GameStats.width // 2 + 125 > mousePos[0] > GameStats.width // 2 - 125 and \
+                GameStats.height // 2 + 25 < mousePos[1] < GameStats.height // 2 + 125 :
+            GameStats.mod = "on_game"
+            p1 = Player((255, 255, 255), (0, 200, 20, 100),
+                             Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width / 2 - 24, 0))
+            # p2 =
 
     # Update Display
-    DisplaySurface.fill((0, 0, 0))
+    DisplaySurface.fill((255, 51, 204))
+    # 2 Player
     pygame.draw.rect(DisplaySurface, (255, 0, 0), (GameStats.width // 2 - 125, GameStats.height // 2 - 100, 250, 100))
-    text_surface, rect = GameStats.FONT.render("Start Game", (255, 255, 255))
-    DisplaySurface.blit(text_surface, dest=(GameStats.width // 2 - 118, GameStats.height // 2 - 60, 200, 100))
+    text_surface, rect = GameStats.FONT.render("2 Player", (255, 255, 255))
+    DisplaySurface.blit(text_surface, dest=(GameStats.width // 2 - 100, GameStats.height // 2 - 60, 200, 100))
+
+    # VERSUS BOT
+    pygame.draw.rect(DisplaySurface, (0, 0, 255), (GameStats.width // 2 - 125, GameStats.height // 2 + 25, 250, 100))
+    text_surface, rect = GameStats.FONT.render("vs Cmp", (255, 255, 255))
+    DisplaySurface.blit(text_surface, dest=(GameStats.width // 2 - 100, GameStats.height // 2 + 75, 200, 100))
+
+    return (p1, p2, Ball((p1, p2)))
 
 
 def on_game():
@@ -79,7 +101,7 @@ while True:
             sys.exit()
 
     if GameStats.mod == "start_game":
-        start_game()
+        player1, player2, ball = start_game()
     if GameStats.mod == "on_game":
         on_game()
     elif GameStats.mod == "game_over":
