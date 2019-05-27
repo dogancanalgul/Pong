@@ -5,7 +5,7 @@ from Pong.Player.Goal import Goal
 from Pong.Player.Player import Player
 from pygame import freetype
 from Pong.ball import Ball
-
+from Pong.Bot import Bot
 
 
 def start_game():
@@ -28,7 +28,8 @@ def start_game():
             GameStats.mod = "on_game"
             p1 = Player((255, 255, 255), (0, 200, 20, 100),
                              Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width / 2 - 24, 0))
-            # p2 =
+            p2 = Player((255, 255, 255), (0, 200, 20, 100),
+                        Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width / 2 - 24, 0))
 
     # Update Display
     DisplaySurface.fill((255, 51, 204))
@@ -85,10 +86,12 @@ pygame.display.set_caption("Pong")
 player1 = Player((255, 255, 255), (0, 200, 20, 100),
                  Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width/2-24, 0))
 
-player2 = Player((255, 0, 255), (GameStats.width - 20, 200, 20, 100),
+player2 = Bot((255, 0, 255), (GameStats.width - 20, 200, 20, 100),
                  Goal((-10, 0, 10, GameStats.height)), (GameStats.width/2+24, 0))
 
 ball = Ball((player1, player2))
+player2.load_ball(ball)
+
 
 # Game Loop
 while True:
