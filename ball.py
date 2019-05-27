@@ -13,6 +13,7 @@ class Ball:
     SPEED_X = 6
     COLOR = (int(255), int(255), int(255))
     RADIUS: int = 10
+    WIN_SCORE = 10
 
     def __init__(self, players):
         self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
@@ -55,10 +56,16 @@ class Ball:
                                                         col_body[3]/2)/col_body[3]*Ball.MAX_SPEED_Y*2))
             elif type(col_body) is Goal:
                 if self.players[0].goal == col_body:
-                    self.players[0].score()
+                    if self.players[0].score() == self.WIN_SCORE:
+                        self.players[0].reset()
+                        self.players[1].reset()
+
+
+
 
                 if self.players[1].goal == col_body:
-                    self.players[1].score()
-
+                    if self.players[1].score() == self.WIN_SCORE:
+                        self.players[0].reset()
+                        self.players[1].reset()
                 self.pos = (GameStats.width//2, GameStats.height//2)
                 self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
