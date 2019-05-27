@@ -16,15 +16,15 @@ class Player:
         Player.GAME_FONT = freetype.Font("wonder.ttf", 24)
         self.pos = pos
 
-    def __getitem__(self, key):
-        if key == 1:
-            return self._goal
-        if key == 0:
-            return self._racket
-        else:
-            raise ValueError
+    # For getting the _goal and _racket attribute (they cannot be changed)
 
+    @property
+    def goal(self):
+        return self._goal
 
+    @property
+    def racket(self):
+        return self._racket
 
     def update(self, surface):
         self._racket.draw(surface)
@@ -43,4 +43,4 @@ class Player:
 # A player Class and file to store all player related stuff. For starters
 # I am going to take PlayerRacket to here and implement Goal. Then in Player Class
 # I will make composition with them. After that I hope main will be much more clear for
-# new tools such as menu screen, multiplayer and etc.
+# new tools such as menu screen, multi-player and etc.

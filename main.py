@@ -6,7 +6,7 @@ from Pong.Player.Player import Player
 from Pong.Wall import Wall
 from Pong.ball import Ball
 
-# initializing pygame
+# initializing py-game
 pygame.init()
 
 

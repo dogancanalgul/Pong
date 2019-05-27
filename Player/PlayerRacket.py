@@ -21,6 +21,9 @@ class PlayerRacket:
         if self._posize[1] > 0:
             self._posize[1] -= PlayerRacket.SPEED
 
+    # With this two functions below you can call the rackets index from the class
+    # Example racket_object[i] gives posize[i]
+
     def __getitem__(self, key):
         return self._posize[key]
 
