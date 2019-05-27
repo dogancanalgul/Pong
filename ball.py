@@ -60,12 +60,9 @@ class Ball:
                         self.players[0].reset()
                         self.players[1].reset()
 
-
-
-
                 if self.players[1].goal == col_body:
                     if self.players[1].score() == self.WIN_SCORE:
                         self.players[0].reset()
                         self.players[1].reset()
                 self.pos = (GameStats.width//2, GameStats.height//2)
-                self.velocity = (Ball.SPEED_X, randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
+                self.velocity = ((Ball.SPEED_X * ((-1) ** randrange(2))), randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))

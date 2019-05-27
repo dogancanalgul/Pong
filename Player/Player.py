@@ -6,18 +6,13 @@ from Pong.Player.PlayerRacket import PlayerRacket
 
 class Player:
 
-    GAME_FONT:int
 
-
-
-    def __init__(self, color, posize, limit,goal,pos):
-        self._racket = PlayerRacket(color, posize, limit)
+    def __init__(self, color, posize, goal, pos):
+        self._racket = PlayerRacket(color, posize, GameStats.height)
         self._score = 0
         self._goal = goal
         Player.GAME_FONT = freetype.Font("wonder.ttf", 24)
         self._score_pos = pos
-
-    # For getting the _goal and _racket attribute (they cannot be changed)
 
     @property
     def goal(self):
@@ -29,8 +24,8 @@ class Player:
 
     def update(self, surface):
         self._racket.draw(surface)
-        text_surface,rect = Player.GAME_FONT.render(f"{self._score}", (255, 255, 255))
-        surface.blit(text_surface,dest=self._score_pos)
+        text_surface, rect = GameStats.FONT.render(f"{self._score}", (255, 255, 255))
+        surface.blit(text_surface, dest=self._score_pos)
 
     def up(self):
         self._racket.moveUp()
@@ -44,7 +39,7 @@ class Player:
 
     def reset(self):
         self._score = 0
-        self.racket._posize[1] = GameStats.height//2
+        self.racket[1] = GameStats.height//2
 
 # A player Class and file to store all player related stuff. For starters
 # I am going to take PlayerRacket to here and implement Goal. Then in Player Class
