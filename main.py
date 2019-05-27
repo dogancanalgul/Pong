@@ -1,11 +1,11 @@
 import pygame, sys
 
+from Pong.Bot import Bot
 from Pong.GameStats import GameStats
 from Pong.Player.Goal import Goal
 from Pong.Player.Player import Player
 from pygame import freetype
 from Pong.ball import Ball
-from Pong.Bot import Bot
 
 
 def start_game():
@@ -22,14 +22,17 @@ def start_game():
                              Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width / 2 - 24, 0))
             p2 = Player((255, 0, 255), (GameStats.width - 20, 200, 20, 100),
                  Goal((-10, 0, 10, GameStats.height)), (GameStats.width/2+24, 0))
+            ball = Ball((p1, p2))
 
         if GameStats.width // 2 + 125 > mousePos[0] > GameStats.width // 2 - 125 and \
                 GameStats.height // 2 + 25 < mousePos[1] < GameStats.height // 2 + 125 :
             GameStats.mod = "on_game"
             p1 = Player((255, 255, 255), (0, 200, 20, 100),
                              Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width / 2 - 24, 0))
-            p2 = Player((255, 255, 255), (0, 200, 20, 100),
-                        Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width / 2 - 24, 0))
+            p2 = Bot((255, 0, 255), (GameStats.width - 20, 200, 20, 100),
+                 Goal((-10, 0, 10, GameStats.height)), (GameStats.width/2+24, 0))
+            ball = Ball((p1, p2))
+            p2.load_ball(ball)
 
     # Update Display
     DisplaySurface.fill((255, 51, 204))
@@ -43,7 +46,9 @@ def start_game():
     text_surface, rect = GameStats.FONT.render("vs Cmp", (255, 255, 255))
     DisplaySurface.blit(text_surface, dest=(GameStats.width // 2 - 100, GameStats.height // 2 + 75, 200, 100))
 
-    return (p1, p2, Ball((p1, p2)))
+
+
+    return (p1, p2, ball)
 
 
 def on_game():
@@ -83,15 +88,7 @@ DisplaySurface = pygame.display.set_mode((GameStats.width, GameStats.height))
 pygame.display.set_caption("Pong")
 
 # GOALS ARE REVERSELY ADDED
-player1 = Player((255, 255, 255), (0, 200, 20, 100),
-                 Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width/2-24, 0))
-
-player2 = Bot((255, 0, 255), (GameStats.width - 20, 200, 20, 100),
-                 Goal((-10, 0, 10, GameStats.height)), (GameStats.width/2+24, 0))
-
-ball = Ball((player1, player2))
-player2.load_ball(ball)
-
+player1, player2, ball = (None, None, None)
 
 # Game Loop
 while True:
