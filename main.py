@@ -46,8 +46,6 @@ def start_game():
     text_surface, rect = GameStats.FONT.render("vs Cmp", (255, 255, 255))
     DisplaySurface.blit(text_surface, dest=(GameStats.width // 2 - 100, GameStats.height // 2 + 75, 200, 100))
 
-
-
     return (p1, p2, ball)
 
 
@@ -55,9 +53,9 @@ def on_game():
     # KEYBOARD CONTROL
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP] and not isinstance(player2, Bot):
         player2.up()
-    elif keys[pygame.K_DOWN]:
+    elif keys[pygame.K_DOWN]  and not isinstance(player2, Bot):
         player2.down()
 
     if keys[pygame.K_w]:
