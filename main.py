@@ -27,12 +27,13 @@ def start_game():
         if GameStats.width // 2 + 125 > mousePos[0] > GameStats.width // 2 - 125 and \
                 GameStats.height // 2 + 25 < mousePos[1] < GameStats.height // 2 + 125 :
             GameStats.mod = "on_game"
-            p1 = Player((255, 255, 255), (0, 200, 20, 100),
+            p1 = Bot((255, 255, 255), (0, 200, 20, 100),
                              Goal((GameStats.width, 0, 10, GameStats.height)), (GameStats.width / 2 - 24, 0))
             p2 = Bot((255, 0, 255), (GameStats.width - 20, 200, 20, 100),
                  Goal((-10, 0, 10, GameStats.height)), (GameStats.width/2+24, 0))
             ball = Ball((p1, p2))
             p2.load_ball(ball)
+            p1.load_ball(ball)
 
     # Update Display
     DisplaySurface.fill((255, 51, 204))

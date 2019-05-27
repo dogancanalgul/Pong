@@ -13,10 +13,9 @@ class Bot(Player):
     def update(self, surface):
         super().update(surface)
 
-        if self.ball[1] > self._racket[1] :
+        if self.ball[1] < self.racket[1]:
             self.up()
-
-        else :
+        if self.ball[1] > self.racket[1]:
             self.down()
 
     def load_ball(self,ball):
