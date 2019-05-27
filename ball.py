@@ -66,3 +66,7 @@ class Ball:
                         self.players[1].reset()
                 self.pos = (GameStats.width//2, GameStats.height//2)
                 self.velocity = ((Ball.SPEED_X * ((-1) ** randrange(2))), randrange(-Ball.MAX_SPEED_Y, Ball.MAX_SPEED_Y))
+
+    def __getitem__(self, key):
+        return self.pos[key]
+
