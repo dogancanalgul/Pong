@@ -39,13 +39,13 @@ class snakeGame:
             self.snake.append(prev_tail)
 
             #APPLE CREATION
-            self.apple = (randint(32), randint(32))
+            self.apple = (randint(0,32), randint(0,32))
             flag = True
             while flag:
                 flag = False
                 for pos in self.snake:
-                    if self.snake[pos][0] == self.apple[0] and self.snake[pos][1] == self.apple[1]:
-                        self.apple = (randint(32), randint(32))
+                    if pos[0] == self.apple[0] and pos[1] == self.apple[1]:
+                        self.apple = (randint(0,32), randint(0,32))
                         flag = True
         else:
             for i in range(len(self.snake) - 1,0,-1):
@@ -53,10 +53,10 @@ class snakeGame:
             self.snake[0] = dest_pos
 
     def move_left(self):
-        is_left = True
+        self.is_left = True
 
     def move_right(self):
-        is_right = True
+        self.is_right = True
 
     def game(self):
 
@@ -80,6 +80,11 @@ class snakeGame:
                         pygame.quit()
                         sys.exit()
 
+
+            if randint(0,2) == 1:
+                self.move_right()
+            else:
+                self.move_left()
             self.move_forward()
             self.is_left = False
             self.is_right = False
@@ -88,6 +93,9 @@ class snakeGame:
                 self.update(DisplaySurface)
 
             (pygame.time.Clock()).tick(15)
+
+        pygame.quit()
+        sys.exit()
 
     def update(self, surface):
         for elem in self.snake:
