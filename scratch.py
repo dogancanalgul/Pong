@@ -6,11 +6,25 @@ display = True
 
 
 class snakeGame:
+
+
     snake = [(16, 16),(16,15)]
     apple = (18, 18)
     is_dead = False
     is_left = False
     is_right = False
+
+    def move_left(self):
+        self.is_left = True
+        self.move_forward()
+        self.is_left = False
+        self.is_right = False
+
+    def move_right(self):
+        self.is_right = True
+        self.move_forward()
+        self.is_left = False
+        self.is_right = False
 
 
     def move_forward(self):
@@ -52,15 +66,11 @@ class snakeGame:
                 self.snake[i] = self.snake[i-1]
             self.snake[0] = dest_pos
 
-    def move_left(self):
-        self.is_left = True
 
-    def move_right(self):
-        self.is_right = True
 
     def game(self):
 
-        if  display:
+        if display:
             pygame.init()
             DisplaySurface = pygame.display.set_mode((640, 640))
             # Game Name Pong
@@ -76,23 +86,25 @@ class snakeGame:
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
-                        # End Game
                         pygame.quit()
                         sys.exit()
 
+            keys = pygame.key.get_pressed()
 
-            if randint(0,2) == 1:
+
+
+            if keys[pygame.K_RIGHT]:
                 self.move_right()
-            else:
+            elif keys[pygame.K_LEFT]:
                 self.move_left()
+
+
             self.move_forward()
-            self.is_left = False
-            self.is_right = False
             if display:
                 DisplaySurface.fill((0,0,0))
                 self.update(DisplaySurface)
 
-            (pygame.time.Clock()).tick(15)
+            (pygame.time.Clock()).tick(10)
 
         pygame.quit()
         sys.exit()
