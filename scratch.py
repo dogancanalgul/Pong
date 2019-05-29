@@ -2,7 +2,7 @@ import pygame
 import sys
 from random import randint
 
-display = True
+display = True # Toggle for pygame codes.(GUI)
 
 
 class snakeGame:
@@ -12,9 +12,9 @@ class snakeGame:
     is_left = False
     is_right = False
 
-
     def move_forward(self):
 
+        # Direction and destination for snake movement is made.
         vect = (self.snake[0][0] - self.snake[1][0],self.snake[0][1] - self.snake[1][1])
         if self.is_right:
             vect = (vect[1],-vect[0])
@@ -23,13 +23,13 @@ class snakeGame:
 
         dest_pos = (self.snake[0][0] + vect[0],self.snake[0][1]+ vect[1])
 
+        # If snake is out of bonds or snake is hitting itself it dies.
         if not(0 <= dest_pos[0] < 32 and 0 <= dest_pos[1] < 32):
             self.is_dead =True
 
         elif dest_pos in self.snake:
             self.is_dead = True
-
-
+        # If snake eats apple it grows and another random apple will appear around!
         elif dest_pos == self.apple:
             prev_tail = self.snake[-1]
 
@@ -38,7 +38,7 @@ class snakeGame:
             self.snake[0] = dest_pos
             self.snake.append(prev_tail)
 
-            #APPLE CREATION
+            # APPLE CREATION
             self.apple = (randint(0,32), randint(0,32))
             flag = True
             while flag:
@@ -47,6 +47,7 @@ class snakeGame:
                     if pos[0] == self.apple[0] and pos[1] == self.apple[1]:
                         self.apple = (randint(0,32), randint(0,32))
                         flag = True
+        # If snake makes a normal move it just moves.
         else:
             for i in range(len(self.snake) - 1,0,-1):
                 self.snake[i] = self.snake[i-1]
@@ -70,16 +71,13 @@ class snakeGame:
         while not self.is_dead:
 
             # User Events;
-
             if display:
                 pygame.display.update()
-
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         # End Game
                         pygame.quit()
                         sys.exit()
-
 
             if randint(0,2) == 1:
                 self.move_right()
