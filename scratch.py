@@ -43,7 +43,6 @@ class snakeGame:
         elif dest_pos in self.snake:
             self.is_dead = True
 
-
         elif dest_pos == self.apple:
             prev_tail = self.snake[-1]
 
@@ -97,8 +96,7 @@ class snakeGame:
                 self.move_right()
             elif keys[pygame.K_LEFT]:
                 self.move_left()
-
-
+            
             self.move_forward()
             if display:
                 DisplaySurface.fill((0,0,0))
