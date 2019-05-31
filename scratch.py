@@ -29,11 +29,11 @@ class snakeGame:
 
     def move_forward(self):
 
-        vect = (self.snake[0][0] - self.snake[1][0],self.snake[0][1] - self.snake[1][1])
+        vect = (self.snake[0][0] - self.snake[1][0], self.snake[0][1] - self.snake[1][1])
         if self.is_right:
-            vect = (vect[1],-vect[0])
+            vect = (-vect[1], vect[0])
         elif self.is_left:
-            vect = (-vect[1],vect[0])
+            vect = (vect[1], -vect[0])
 
         dest_pos = (self.snake[0][0] + vect[0],self.snake[0][1]+ vect[1])
 
@@ -65,8 +65,6 @@ class snakeGame:
                 self.snake[i] = self.snake[i-1]
             self.snake[0] = dest_pos
 
-
-
     def game(self):
 
         if display:
@@ -79,18 +77,14 @@ class snakeGame:
         while not self.is_dead:
 
             # User Events;
-
             if display:
                 pygame.display.update()
-
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         sys.exit()
 
             keys = pygame.key.get_pressed()
-
-
 
             if keys[pygame.K_RIGHT]:
                 self.move_right()
@@ -102,7 +96,7 @@ class snakeGame:
                 DisplaySurface.fill((0,0,0))
                 self.update(DisplaySurface)
 
-            (pygame.time.Clock()).tick(10)
+            (pygame.time.Clock()).tick(16)
 
         pygame.quit()
         sys.exit()
